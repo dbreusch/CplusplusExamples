@@ -1,0 +1,196 @@
+/*** Class Cards ***/
+
+Class Name: Graph
+Purpose: basic form for a directed graph
+Parent Class: none
+Derived Classes: Dag, Tree
+Responsibilities:
+	maintain id number of dag
+	maintain a set of the dag's nodes
+	maintain a set of the dag's arcs
+	provide methods for traversing dag or checking dag properties
+
+Class Name: Dag
+Purpose: basic form for a directed acyclic graph
+Parent Class: Graph
+Derived Classes: Tree
+Responsibilities:
+	maintain acyclic property
+
+Class Name: Tree
+Purpose: basic form for a tree
+Parent Class: Dag
+Derived Classes: none
+Responsibilities:
+	maintain acyclic property
+	maintain tree property (each node has at most 1 parent)
+
+Class Name: Node
+Purpose: basic form for a graph node
+Parent Class: none
+Derived Classes: PseudoNode
+Responsibilities:
+	maintain node id
+
+Class Name: PseudoNode
+Purpose: allow for treatment of a graph as a node in another graph
+Parent Class: Node
+Derived Classes: none
+Responsibilities:
+	maintain node id
+	maintain copy of graph it represents
+	print self
+
+Class Name: Arc
+Purpose: basic form for the connective proerty, arcs, of graphs
+Parent Class: none
+Derived Classes: LabelArc
+Responsibilities:
+	maintain arc as a "to" "from" pair of node names
+	print self
+
+Class Name: LabelArc
+Purpose: basic form for the connective proerty, arcs, of graphs
+Parent Class: Arc
+Derived Classes: none
+Responsibilities:
+	maintain arc as a "to" "from" pair of node names
+	maintain arc name
+	print self
+
+Class Name: List
+Purpose: general implementation of list structure
+Parent Class: none
+Derived Classes: GraphList, NodeList, ArcList
+Responsibilities:
+	adding objects of class Element
+	deleteing objects of class Element
+	finding objects of class Element
+	printing objects of class Element
+
+Class Name: GraphList
+Purpose: main storage structure of program
+Parent Class: List
+Derived Classes: none
+Responsibilities:
+	adding objects of class GraphElement
+	deleteing objects of class GraphElement
+	finding objects of class GraphElement
+	printing all objects of class GraphElement in list
+	
+Class Name: NodeList
+Purpose: storage structure for groups of nodes
+Parent Class: List
+Derived Classes: none
+Responsibilities:
+	adding objects of class NodeElement
+	deleteing objects of class NodeElement
+	finding objects of class NodeElement
+	printing all objects of class NodeElement in list
+
+Class Name: ArcList
+Purpose: storage structure for groups of arcs
+Parent Class: List
+Derived Classes: none
+Responsibilities:
+	adding objects of class ArcElement
+	deleteing objects of class ArcElement
+	finding objects of class ArcElement
+	printing all objects of class ArcElement in list
+
+Class Name: Element
+Purpose: general implementation of element structure
+Parent Class: none
+Derived Classes: GraphElement, NodeElement, ArcElement
+Responsibilities:
+	general connective properties of elements
+
+Class Name: GraphElement
+Purpose: provide method for putting objects of type Graph in GraphList
+Parent Class: Element
+Derived Classes: none
+Responsibilities:
+	maintain an Graph
+	pass on function calls to Graph (ie. access, printing, etc.)
+
+Class Name: NodeElement
+Purpose: provide method for putting objects of type Node in NodeList
+Parent Class: Element
+Derived Classes: none
+Responsibilities:
+	maintain an Node
+	pass on function calls to Node (ie. access, printing, etc.)
+
+Class Name: ArcElement
+Purpose: provide method for putting objects of type Arc in ArcList
+Parent Class: Element
+Derived Classes: none
+Responsibilities:
+	maintain an Arc
+	pass on function calls to Arc (ie. access, printing, etc.)
+
+Class Name: Command
+Purpose: collect general command form for specific command classes
+Parent Class: none
+Derived Classes: Cmd_Graph, Cmd_Dag, Cmd_Tree, Cmd_Node, Cmd_Arc,
+                 Cmd_Larc, Cmd_Insert, Cmd_Delgraph, Cmd_Delnode, 
+                 Cmd_Delarc, Cmd_Dellarc, Cmd_print, Cmd_printall,
+                 Cmd_Unreach, Cmd_Dfs, Cmd_Reach, Cmd_Path, Cmd_Cycle
+Responsibilities:
+	maintain character string equivalent of name
+	check for valid command type
+	basic get and store arguments methods
+	basic execute methods
+
+(this is a general purpose card to avoid cards for all of the above)
+
+Class Name: Cmd_***
+Purpose: specific execution of related command
+Parent Class: Command
+Derived Classes: none
+Responsibilities:
+	maintain character string equivalent of name
+	check for valid command type
+	specific get and store arguments methods
+	specific execute methods (ie. cycle, dfs, reach, etc.)
+
+Class Name: UserInterface
+Purpose: provide command line interface between user and system
+Parent Class: none
+Derived Classes: none
+Responsibilities:
+	get basic types from input (ie. token, int, real, etc.)
+	detect failure of read operations
+
+/*** Subsystem Cards ***/
+
+Subsystem Name: Interface
+Contained Classes: UserInterface
+Contracts:
+	provide interface with user
+
+Subsystem Name: Command
+Contained Classes: Command and all its child classes
+Contracts:
+	none (acts a client only)
+
+Subsystem Name: Graph Storage
+Contained Classes: GraphList, GraphElement
+Contracts:
+	provide storage for graphs
+
+Subsystem Name: Graph
+Contained Classes: Graph, Dag, Tree
+Contracts:
+	provide storage for graph values
+	access graph manipulation functions (cycle, dfs, etc.)
+
+Subsystem Name: Node
+Contained Classes: NodeList, NodeElement, Node, PseudoNode
+Contracts:
+	provide storage for and access to nodes of graphs
+
+Subsystem Name: Arc
+Contained Classes: ArcList, ArcElement, Arc, LabelArc
+Contracts:
+	provide storage for and access to arcs of graphs

@@ -1,0 +1,32 @@
+/*** Subsystem Cards ***/
+
+Subsystem Name: Interface
+Contained Classes: UserInterface
+Contracts:
+	provide interface with user
+
+Subsystem Name: Command
+Contained Classes: Command and all its child classes
+Contracts:
+	none (acts a client only)
+
+Subsystem Name: Graph Storage
+Contained Classes: GraphList, GraphElement
+Contracts:
+	provide storage for graphs
+
+Subsystem Name: Graph
+Contained Classes: Graph, Dag, Tree
+Contracts:
+	provide storage for graph values
+	access graph manipulation functions (cycle, dfs, etc.)
+
+Subsystem Name: Node
+Contained Classes: NodeList, NodeElement, Node, PseudoNode
+Contracts:
+	provide storage for and access to nodes of graphs
+
+Subsystem Name: Arc
+Contained Classes: ArcList, ArcElement, Arc, LabelArc
+Contracts:
+	provide storage for and access to arcs of graphs

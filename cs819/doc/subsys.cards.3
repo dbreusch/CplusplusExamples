@@ -1,0 +1,38 @@
+Subsystem Name:  Application
+Purpose:  Provide the interface to the program for the user's commands
+Contained Classes: Command (and children), UserInterface, Application, CmdTbl
+Contracts:
+4) Support command line interface between user and program      Command
+5) Provide interface between program and user data              UserInterface
+13) Run the application                                         Application
+18) Validate a command name										CmdTbl
+
+Subsystem Name:  Storage
+Purpose:  Provide storage/data structures to hold the elements of
+          the graphs
+Contained Classes: List (and children), Element (and children)
+Contracts:
+3) Support list create/update/delete/find/print                 List
+9) Support list element methods                                 Element
+17) Support list navigation and verification					List
+
+Subsystem Name:  Graph
+Purpose:  Manage the three graph structures
+Contained Classes: Graph, Dag, Tree
+Contracts:
+1) Support graph create/update/delete                           Graph
+2) Support graph navigation and verification                    Graph
+7) Maintain DAG property                                        Dag
+8) Maintain tree property                                       Tree
+14) Maintain an identifier for graph							Graph
+
+Subsystem Name:  Node
+Purpose:  Manage the components  of the graphs
+Contained Classes: Node, PseudoNode, Arc, LabelArc
+Contracts:
+6) Provide methods for node manipulation                        Node
+10) Support subgraphs in graph nodes                            PseudoNode
+11) Provide methods for arc manipulation                        Arc
+12) Support labels on graph arcs                                LabelArc
+15) Maintain an identifier for node								Node
+16) Support printing of an arc									Arc

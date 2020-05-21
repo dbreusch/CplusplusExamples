@@ -1,0 +1,25 @@
+Project status for Version 1			(5/13/94)
+
+At minimum, the following things do not work in one way or another:
+
+- During traversal, if a node is not found, an assert is used and the
+  program is terminated.  Not the best design choice.  Should be
+  changed to just return error code.
+- Some execute routines are returning spurious bad return codes.  This
+  results in misleading error messages and can be fixed by checking the
+  routines to make sure they give valid return codes.
+- Arcs to a deleted node are not removed when the node is removed.  This
+  will result in nodes not being found (currently a program failure, but
+  eventually just an error message).  Should be removed at delete time
+  with a search of node list.
+- Insert not implemented at all.  This is a relatively major feature that
+  should be available.
+- Multiple unlabeled arcs can be created between nodes.  This is sort of a
+  design choice based on the spec.  However, it would probably be better
+  to not allow this (RDB:  any comment?).
+- Traversal from a root to itself directly, and probably from any node to
+  itself directly is considered impossible.  Another design choice that
+  appears to be in error.
+
+Version 2 will be submitted during the day Monday, with corresponding
+late points deducted but fewer inadequacies.

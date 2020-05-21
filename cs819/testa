@@ -1,0 +1,41 @@
+graph 1 1
+node 1 2
+node 1 3
+larc 1 1 2 a
+arc 1 2 3
+arc 1 3 1
+print 1
+
+dag 2 1
+node 2 2
+node 2 3
+larc 2 3 1 a
+arc 2 2 1
+print 2
+
+tree 3 1
+node 3 2
+node 3 3
+node 3 4
+node 3 5
+arc 3 1 2
+arc 3 1 3
+arc 3 1 4
+larc 3 4 5 a
+print 3
+
+dfs 1 1
+dfs 2 2
+dfs 3 1
+
+cycle 1 3
+node 1 4
+reach 1 4
+reach 1 3
+path 3 1 5
+
+arc 2 4 2
+print 2
+
+larc 2 1 -1 pseudo
+print 2

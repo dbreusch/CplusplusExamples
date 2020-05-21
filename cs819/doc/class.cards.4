@@ -1,0 +1,567 @@
+//
+// Graph and children
+//
+
+Class: Graph													(Concrete)
+Description:  This class represents the fundamental elements
+			  of a directed graph, namely the nodes and arcs.
+			  It also contains a simple identifier for
+			  referencing graphs.  It provides methods for a
+			  number of graph operations: traversal, cycle
+			  checking, path checking, reachability of nodes.
+			  It also knows how to display itself.
+Superclasses: none
+Subclasses: Dag, Tree
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 3
+Contracts:
+1. Support graph create/update/delete
+maintain a set of the graph's nodes (add/del/mod)           Node (6,10)
+                                                            Storage (3)
+    addNode( int ) returns int
+    delNode( int ) returns int
+
+maintain a set of the graph's arcs (add/del/mod)            Node (11,12)
+                                                            Storage  (3)
+    addArc( int, int ) returns int
+    addArc( int, int, String ) returns int
+    delArc( int, int ) returns int
+
+ensure incoming pseudo-nodes are connected to root node     Node (6,10)
+                                                            Storage  (3)
+    addArc( int, int ) returns int
+    addArc( int, int, String ) returns int
+
+2. Support graph navigation and verification
+provide methods for traversing graph                        Node (6,10)
+                                                            Storage (3)
+    dfs( int, list, NodeList )
+	getNodes()
+	getRootId()
+
+provide methods for checking graph properties (unreachability,
+    existence of a path/cycle)              				Node (6,10)
+                                                            Storage (3)
+    unReach( int ) returns Boolean
+    path( int, int, list, list, NodeList ) returns Boolean
+    path( int, int, list ) returns Boolean
+    cycle( int, int, list, list, NodeList ) returns Boolean
+
+print self                                                  Node (6,10)
+                                                            Storage (3)
+    print()
+
+14. Maintain an identifier for graph
+maintain id number of a graph
+	getid()
+
+Class: Dag														(Concrete)
+Description:  This class is an extension of the Graph class
+			  that is restricted to have no cycles, i.e. a
+			  directed, acyclic graph.
+Superclasses: Graph
+Subclasses: Tree
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 3
+Contracts:
+7. Maintain DAG property
+maintain acyclic property
+    addArc( int, int ) returns int
+    addArc( int, int, String ) returns int
+
+Class: Tree														(Concrete)
+Description:  This class is an extension of the Graph andDag
+			  classes that is restricted such that each node
+			  has only one parent, i.e. a tree.
+Superclasses: Dag
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 3
+Contracts:
+8. Maintain tree property
+maintain tree property (each node has at most one parent)
+    addArc( int, int ) returns int
+    addArc( int, int, String ) returns int
+
+//
+// Node and children
+//
+
+Class: Node														(Concrete)
+Description:  This class provides a representation for the nodes
+			  of a graph.  It contains references to the arcs
+			  associated with the node and a simple identifier
+			  for referencing the node.   It supports methods
+			  for traversing the arcs and it knows how to
+			  display itself.
+Superclasses: none
+Subclasses: PseudoNode
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 3
+Contracts:
+6. Provide methods for node manipulation
+support creation/deletion/modification of a arc             Arc (11,12)
+    addArc( int, int ) returns int
+    addArc( int, String ) returns int
+    delArc( int ) returns int
+	firstArc() returns ArcElement
+	nextarc( ArcElement )
+
+support printing of a node
+    print() returns int
+
+support printing of a arc                                   Arc (11,12)
+    print()
+
+15. Maintain an identifier for node
+maintain node id
+	getid() returns int
+
+Class: PseudoNode												(Concrete)
+Description:  This class extends the Node class in order to
+			  support graphs as nodes of other graphs.
+Superclasses: Node
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 3
+Contracts:
+10. Support subgraphs in graph nodes
+maintain copy of graph it represents                        Graph (1)
+	insert( int, int ) returns int
+
+//
+// Arc and children
+//
+
+Class: Arc														(Concrete)
+Description:  This class provides support for the arcs of
+			  the graphs.  It contains the destination node
+			  of the arc.  It supports methods for getting
+			  the destination and displaying itself.
+Superclasses: none
+Subclasses: LabelArc
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 3
+Contracts:
+11. Provide means for following arcs
+provide arc destination node
+	getdest() returns int
+
+16. Support printing of an arc
+print an arc
+    print()
+
+Class: LabelArc													(Concrete)
+Description:  This class extends the Arc class by adding the
+			  ability to associate a label with the arc.  It
+			  adds a method to return that label.
+Superclasses: Arc
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 3
+Contracts:
+12. Support labels on graph arcs
+provide arc name
+    getlabel() returns String
+
+//
+// List and children
+//
+
+Class: List														(Abstract)
+Description:  This class provides a general list structure for 
+			  elements of any type. It provides methods for list
+			  traversal and checking of list attributes such
+			  as cycles, paths, and reachability.  It also knows
+			  how to display itself.
+Superclasses: none
+Subclasses: GraphList, NodeList, ArcList
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts:
+3. Support list create/update/delete/find/print
+adding objects of class Element                             Element (9)
+    add( Element ) returns Element
+    add( List, Element ) returns Element
+deleting objects of class Element                           Element (9)
+    del() returns int
+    del( Element ) returns int
+finding objects of class Element                            Element (9)
+    find( Element ) returns Element
+printing objects of class Element                           Element (9)
+    print() returns int
+    print( Element ) returns int
+
+17. Support list navigation and verification
+provide methods for traversing list                         Node (6,10)
+                                                            Storage (3)
+    dfs( int, list, NodeList )
+	getFirst() returns Element
+	getNext( Element )
+
+provide methods for checking list properties (unreachability,
+    existence of a path/cycle)              				Node (6,10)
+                                                            Storage (3)
+    reach( int, int ) returns Boolean
+    unReach( int ) returns Boolean
+    path( int, int, list, list, NodeList ) returns Boolean
+    cycle( int, int, list, list, NodeList ) returns Boolean
+
+Class: GraphList												(Concrete)
+Description:  An extension of the List class tailored to
+			  hold Graph elements.
+Superclasses: List
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts: no additional
+    
+Class: NodeList													(Concrete)
+Description:  An extension of the List class tailored to
+			  hold Node elements.
+Superclasses: List
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts: no additional
+
+Class: ArcList													(Concrete)
+Description:  An extension of the List class tailored to
+			  hold Arc elements.
+Superclasses: List
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts: no additional
+
+//
+// Element and children
+//
+
+Class: Element													(Abstract)
+Description:  This class provides the elements of a list.
+Superclasses: none
+Subclasses: GraphElement, NodeElement, ArcElement
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts:
+9.  Support list element methods
+general connective properties of list elements
+pass on function calls to element's class (e.g. Graph)
+
+Class: GraphElement												(Concrete)
+Description:  This class tailors the Element class for Graphs.
+Superclasses: Element
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts: no additional
+
+Class: NodeElement												(Concrete)
+Description:  This class tailors the Element class for Nodes.
+Superclasses: Element
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts: no additional
+
+Class: ArcElement												(Concrete)
+Description:  This class tailors the Element class for Arcs.
+Superclasses: Element
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 5
+Contracts: no additional
+
+//
+// Command and children
+//
+
+Class: Command													(Abstract)
+Description:  This class provides an abstract class for the
+			  various specific command classes used in this
+			  application.  It provides a name and a means
+			  of checking that name against an input command.
+			  It also provides methods for obtaining command
+			  arguments and executing the command.
+Superclasses: none
+Subclasses: Cmd_Printall, Cmd_1Int
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+4. Support command line interface between user and program
+maintain character string equivalent of name
+	Command( String )
+check for valid command type
+    IsCommand( String ) returns Boolean
+basic get and store arguments methods                   Application (5)
+    getArgs( UserInterface ) returns int
+basic execute methods
+    execute( UserInterface, GraphList ) returns int
+
+Class: Cmd_Printall												(Concrete)
+Description: Print all graphs
+Superclasses: Command
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+print all graphs defined by user                        Graph (2)
+
+Class: Cmd_1Int													(Abstract)
+Description:  Extension of class Command that adds one
+			  integer argument.
+Superclasses: Command
+Subclasses: Cmd_Delgraph, Cmd_Print, Cmd_Unreach, Cmd_2Int
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:  no additional
+
+Class: Cmd_DelGraph												(Concrete)
+Description: Delete a graph
+Superclasses: Cmd_1Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+remove graph from list                                  Graph (1)
+
+Class: Cmd_Print												(Concrete)
+Description: Print a graph
+Superclasses: Cmd_1Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+print all nodes in graph                                Graph (2)
+
+Class: Cmd_Unreach												(Concrete)
+Description: Check if all graph nodes can be reached from root;
+			 print unreachables
+Superclasses: Cmd_1Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+locate any unreachable nodes                            Graph (2)
+
+Class: Cmd_2Int													(Abstract)
+Description:  Extension of class Cmd_1Int that adds one
+			  more integer argument.
+Superclasses: Cmd_1Int
+Subclasses: Cmd_Graph, Cmd_Dag, Cmd_Tree, Cmd_Node, Cmd_Delnode, 
+                 Cmd_Dfs, Cmd_Reach, Cmd_Cycle, Cmd_3Int
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:  no additional
+
+Class: Cmd_Graph												(Concrete)
+Description: Add a directed graph
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+add a new graph                                         Graph (1)
+
+Class: Cmd_Dag													(Concrete)
+Description: Add a directed, acyclic graph
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+add a new graph                                         Graph (1)
+
+Class: Cmd_Tree													(Concrete)
+Description: Add a tree
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+add a new graph                                         Graph (1)
+
+Class: Cmd_Node													(Concrete)
+Description: Add a node to a graph
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+add a new node to a graph                               Node (6)
+
+Class: Cmd_DelNode												(Concrete)
+Description: Delete a node from a graph
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+delete a node from a graph                              Node (6)
+
+Class: Cmd_Dfs													(Concrete)
+Description: Do a depth first traversal on a graph
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+execute a depth first traversal                         Graph (2)
+
+Class: Cmd_Reach												(Concrete)
+Description: Determine whether a node can be reached from the root;
+			 print a path
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+print path is traversal is successful                   Graph (2)
+
+Class: Cmd_Cycle												(Concrete)
+Description: Print a cycle in the graph or indicate there is none
+Superclasses: Cmd_2Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+determine if a cycle exists                             Graph (2)
+
+Class: Cmd_3Int													(Abstract)
+Description:  Extension of class Cmd_2Int that adds one
+			  more integer argument.
+Superclasses: Cmd_2Int
+Subclasses: Cmd_Arc, Cmd_Insert, Cmd_Delnode, Cmd_Delarc, Cmd_Path,
+                 Cmd_3Int1Tok
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:  no additional
+
+Class: Cmd_Arc													(Concrete)
+Description: Add an arc to a graph
+Superclasses: Cmd_3Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+add an arc and nodes, if necessary, to a graph              Node (11)
+
+Class: Cmd_Insert												(Concrete)
+Description: Insert a graph as a pseudo-node
+Superclasses: Cmd_3Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+copy a graph into another graph                             Graph (1)
+
+Class: Cmd_DelArc												(Concrete)
+Description: Delete an arc from a graph
+Superclasses: Cmd_3Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+remove an arc from a graph                                  Node (11)
+
+Class: Cmd_Path													(Concrete)
+Description: Print a path in the graph or indicate failure if none
+Superclasses: Cmd_3Int
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+determine if a path exists and print if found               Graph (2)
+
+Class: Cmd_3Int1Tok												(Abstract)
+Description:  Extension of class Cmd_3Int that adds one
+			  more token argument.
+Superclasses: Cmd_Larc, Cmd_DelLarc
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:  no additional
+
+Class: Cmd_Larc													(Concrete)
+Description: Add a labeled arc to a graph
+Superclasses: Cmd_3Int1Tok
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+add a labeled arc and nodes, if necessary, to a graph       Node (12)
+
+Class: Cmd_DelLarc												(Concrete)
+Description: Delete a labeled arc from a graph
+Superclasses: Cmd_3Int1Tok
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+delete a labeled arc from a graph                           Node (12)
+
+//
+// CmdTbl
+//
+
+Class: CmdTbl
+Description:  This class provides an interface between the user
+			  input and valid commands.  It provides a method for
+			  verifying that a command is legal and interfaces
+			  with the Command class.
+Superclasses: none
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+18. Validate a command name
+check token in command table
+	isCommand( String )
+	isCommand( char* )
+
+//
+// UserInterface
+//
+
+Class: UserInterface											(Concrete)
+Description:  Provide command line interface between user and system.
+Superclasses: none
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+5. Provide interface between program and user data
+get basic types from input (ie. token, int, real, etc.)
+    getToken(String) returns int
+    getLine(String) returns int
+    getReal(double) returns int
+    getReal() returns double
+    getInt(int) returns int
+    getInt() returns int
+    getChar(char) returns int
+    getChar() returns char
+
+provide basic output interface
+    putLine(String) returns int
+    prompt(char*)
+
+detect failure of read operations
+    bad() returns Boolean
+    good()returns Boolean
+    eof() returns Boolean
+
+//
+// Application
+//
+
+Class: Application												(Abstract)
+Description:  Provide a high-level interface between the user
+			  and the program.
+Superclasses: none
+Subclasses: none
+Hierarchy Graphs:  page 1
+Collaboration Graphs:  page 4
+Contracts:
+13. Run the application
+read and execute commands for user              Command (4)

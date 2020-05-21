@@ -1,0 +1,22 @@
+dag 2 1
+node 2 2
+node 2 3
+larc 2 3 1 a
+arc 2 2 1
+print 2
+arc 2 1 2
+delarc 2 1 2
+delnode 2 6
+
+tree 3 1
+node 3 2
+node 3 3
+node 3 4
+node 3 5
+arc 3 1 2
+arc 3 1 3
+arc 3 1 4
+larc 3 4 5 a
+print 3
+arc 3 1 5
+arc 3 5 1

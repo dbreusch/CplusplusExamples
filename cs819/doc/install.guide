@@ -1,0 +1,34 @@
+
+Installation Guide:							Reusch, Jome & D'Luz
+------------------
+In addition to the Makefile, you should have the
+following source and header files:
+
+asn4.cc					Main program
+arc.h					Declarations for class Arc
+arc.cc					Methods for class Arc
+arclist.h				Declarations for classes ArcElement & ArcList
+arclist.cc				Methods for classes ArcElement & ArcList
+cmdtbl.h				Declarations for class CmdTbl
+cmdtbl.cc				Methods for class CmdTbl
+command.h				Declarations for class Command and child classes
+command.cc				Methods for class Command and child classes
+graph.h					Declarations for classes Graph, Dag & Tree
+graph.cc				Methods for classes Graph, Dag & Tree
+graphlist.h				Declarations for classes GraphElement & GraphList
+graphlist.cc			Methods for classes GraphElement & GraphList
+node.h					Declarations for class Node
+node.cc					Methods for class Node
+nodelist.h				Declarations for classes NodeElement & NodeList
+nodelist.cc				Methods for classes NodeElement & NodeList
+
+To create a new executable asn4 program, run the make command.  This
+is all that is required to install this software.
+
+NOTE:  While this code will compile and link on any of our systems
+that support gnu C++ and the UserInterface class, it will not run on
+christa due to a problem with gnu C++ and the class templates used
+for linked lists.  This is the only caveat we know about.
+
+
+5/11/94

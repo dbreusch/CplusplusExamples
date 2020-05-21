@@ -1,0 +1,406 @@
+//
+// Graph and children
+//
+
+Class Name: Graph
+Purpose: basic form for a directed graph
+Parent Class: none
+Derived Classes: Dag, Tree
+Responsibilities:
+maintain id number of a graph
+
+1) Support graph create/update/delete
+maintain a set of the graph's nodes (add/del/mod)           Node (6,10)
+                                                            Storage (3)
+    addNode( int ) returns Node
+    delNode( int )
+    delNode( Node )
+maintain a set of the graph's arcs (add/del/mod)            Node (11,12)
+                                                            Storage  (3)
+    addArc( int, int ) returns Arc
+    delArc( int, int )
+    delArc( Arc )
+ensure incoming pseudo-nodes are connected to root node     Node (6,10)
+                                                            Storage  (3)
+
+2) Support graph navigation and verification
+provide methods for traversing graph                        Node (6,10)
+                                                            Storage (3)
+    dfs( Graph )
+provide methods for checking graph properties (reachability,
+    unreachability, existence of a path/cycle)              Node (6,10)
+                                                            Storage (3)
+    reach( Node ) returns Boolean
+    unReach() returns Boolean
+    path( Node, Node ) returns Boolean
+    cycle( Node ) returns Boolean
+print self                                                  Node (6,10)
+                                                            Storage (3)
+    print()
+
+Class Name: Dag
+Purpose: basic form for a directed acyclic graph
+Parent Class: Graph
+Derived Classes: Tree
+Responsibilities:
+7) Maintain DAG property
+maintain acyclic property
+
+Class Name: Tree
+Purpose: basic form for a tree
+Parent Class: Dag
+Derived Classes: none
+Responsibilities:
+8) Maintain tree property
+maintain tree property (each node has at most one parent)
+
+//
+// Node and children
+//
+
+Class Name: Node
+Purpose: basic form for a graph node
+Parent Class: none
+Derived Classes: PseudoNode
+Responsibilities:
+6) Provide methods for node manipulation
+support creation/deletion/modification of a node
+    addNode( int ) returns Node
+    delNode( int )
+    delNode( Node )
+support creation/deletion/modification of a arc             Arc (11,12)
+    addArc( int, int )
+    delArc( int, int )
+    delArc( Arc )
+support printing of a node
+    print()
+    print( Node )
+support printing of a arc                                   Arc (11,12)
+    print()
+    print( Arc )
+maintain node id
+
+Class Name: PseudoNode
+Purpose: allow for treatment of a graph as a node in another graph
+Parent Class: Node
+Derived Classes: none
+Responsibilities:
+maintain node id
+
+10) Support subgraphs in graph nodes
+maintain copy of graph it represents                        Graph (1)
+print self
+    print()
+    print( Graph )
+
+//
+// Arc and children
+//
+
+Class Name: Arc
+Purpose: basic form for the connective property, arcs, of graphs
+Parent Class: none
+Derived Classes: LabelArc
+Responsibilities:
+11) Provide methods for arc manipulation
+support creation/deletion/modification of a arc
+    addArc( int, int ) returns Arc
+    delArc( int, int )
+    delArc( Arc )
+maintain arc as a "to" "from" pair of node names
+print an arc
+    print()
+    print( Arc )
+
+Class Name: LabelArc
+Purpose: provide the ability to label an arc in a graph
+Parent Class: Arc
+Derived Classes: none
+Responsibilities:
+12) Support labels on graph arcs
+maintain arc name
+    addArc( int, int, Token ) returns Arc
+
+//
+// List and children
+//
+
+Class Name: List
+Purpose: general implementation of list structure
+Parent Class: none
+Derived Classes: GraphList, NodeList, ArcList
+Responsibilities:
+3) Support list create/update/delete/find/print
+adding objects of class Element                             Element (9)
+    add( Element ) returns Element
+    add( List, Element ) returns Element
+deleting objects of class Element                           Element (9)
+    delete( Element )
+    delete( List, Element )
+finding objects of class Element                            Element (9)
+    find( Element ) returns Element
+    find( List, Element ) returns Element
+printing objects of class Element                           Element (9)
+    print( Element )
+    print( List, Element )
+
+Class Name: GraphList
+Purpose: main storage structure of program
+Parent Class: List
+Derived Classes: none
+Responsibilities: no additional
+    
+Class Name: NodeList
+Purpose: storage structure for groups of nodes
+Parent Class: List
+Derived Classes: none
+Responsibilities: no additional
+
+Class Name: ArcList
+Purpose: storage structure for groups of arcs
+Parent Class: List
+Derived Classes: none
+Responsibilities: no additional
+
+//
+// Element and children
+//
+
+Class Name: Element
+Purpose: general implementation of list element
+Parent Class: none
+Derived Classes: GraphElement, NodeElement, ArcElement
+Responsibilities:
+9)  Support list element methods
+general connective properties of list elements
+pass on function calls to element's class (e.g. Graph)
+
+Class Name: GraphElement
+Purpose: element for objects of type Graph in GraphList
+Parent Class: Element
+Derived Classes: none
+Responsibilities: no additional
+
+Class Name: NodeElement
+Purpose: element for objects of type Node in NodeList
+Parent Class: Element
+Derived Classes: none
+Responsibilities: no additional
+
+Class Name: ArcElement
+Purpose: element for objects of type Arc in ArcList
+Parent Class: Element
+Derived Classes: none
+Responsibilities: no additional
+
+//
+// Command and children
+//
+
+Class Name: Command
+Purpose: general command form for specific command classes
+Parent Class: none
+Derived Classes: Cmd_Printall, Cmd_1Int
+Responsibilities:
+4) Support command line interface between user and program
+maintain character string equivalent of name
+check for valid command type
+    IsCommand( String ) returns Boolean
+basic get and store arguments methods                   Application (5)
+    getArgs( UserInterface ) returns int
+basic execute methods
+    execute( UserInterface, GraphList ) returns int
+
+Class Name: Cmd_Printall
+Purpose: Print all graphs
+Parent Class: Command
+Derived Classes: none
+Responsibilities:
+print all graphs defined by user                        Graph (2)
+
+Class Name: Cmd_1Int
+Purpose: general command form for commands with one integer argument
+Parent Class: Command
+Derived Classes: Cmd_Delgraph, Cmd_Print, Cmd_Unreach, Cmd_2Int
+Responsibilities:  no additional
+
+Class Name: Cmd_DelGraph
+Purpose: Delete a graph
+Parent Class: Cmd_1Int
+Derived Classes: none
+Responsibilities:
+remove graph from list                                  Graph (1)
+
+Class Name: Cmd_Print
+Purpose: Print a graph
+Parent Class: Cmd_1Int
+Derived Classes: none
+Responsibilities:
+print all nodes in graph                                Graph (2)
+
+Class Name: Cmd_Unreach
+Purpose: Check if all graph nodes can be reached from root; print unreachable
+Parent Class: Cmd_1Int
+Derived Classes: none
+Responsibilities:
+locate any unreachable nodes                            Graph (2)
+
+Class Name: Cmd_2Int
+Purpose: general command form for commands with two integer arguments
+Parent Class: Cmd_1Int
+Derived Classes: Cmd_Graph, Cmd_Dag, Cmd_Tree, Cmd_Node, Cmd_Delnode, 
+                 Cmd_Dfs, Cmd_Reach, Cmd_Cycle, Cmd_3Int
+Responsibilities:  no additional
+
+Class Name: Cmd_Graph
+Purpose: Add a directed graph
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+add a new graph                                         Graph (1)
+
+Class Name: Cmd_Dag
+Purpose: Add a directed, acyclic graph
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+add a new graph                                         Graph (1)
+
+Class Name: Cmd_Tree
+Purpose: Add a tree
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+add a new graph                                         Graph (1)
+
+Class Name: Cmd_Node
+Purpose: Add a node to a graph
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+add a new node to a graph                               Node (6)
+
+Class Name: Cmd_DelNode
+Purpose: Delete a node from a graph
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+delete a node from a graph                              Node (6)
+
+Class Name: Cmd_Dfs
+Purpose: Do a depth first search on a graph
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+execute a depth first traversal                         Graph (2)
+
+Class Name: Cmd_Reach
+Purpose: Determine whether a node can be reached from the root; print a path
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+print path is traversal is successful                   Graph (2)
+
+Class Name: Cmd_Cycle
+Purpose: Print a cycle in the graph or indicate there is none
+Parent Class: Cmd_2Int
+Derived Classes: none
+Responsibilities:
+determine if a cycle exists                             Graph (2)
+
+Class Name: Cmd_3Int
+Purpose: general command form for commands with three integer arguments
+Parent Class: Cmd_2Int
+Derived Classes: Cmd_Arc, Cmd_Insert, Cmd_Delnode, Cmd_Delarc, Cmd_Path,
+                 Cmd_3Int1Tok
+Responsibilities:  no additional
+
+Class Name: Cmd_Arc
+Purpose: Add an arc to a graph
+Parent Class: Cmd_3Int
+Derived Classes: none
+Responsibilities:
+add an arc and nodes, if necessary, to a graph              Node (11)
+
+Class Name: Cmd_Insert
+Purpose: Insert a graph as a pseudo-node
+Parent Class: Cmd_3Int
+Derived Classes: none
+Responsibilities:
+copy a graph into another graph                             Graph (1)
+
+Class Name: Cmd_DelArc
+Purpose: Delete an arc from a graph
+Parent Class: Cmd_3Int
+Derived Classes: none
+Responsibilities:
+remove an arc from a graph                                  Node (11)
+
+Class Name: Cmd_Path
+Purpose: Print a path in the graph or indicate failure if none
+Parent Class: Cmd_3Int
+Derived Classes: none
+Responsibilities:
+determine if a path exists and print if found               Graph (2)
+
+Class Name: Cmd_3Int1Tok
+Purpose: general command form for commands with three integer arguments
+         and one token  argument
+Parent Class: Cmd_Larc, Cmd_DelLarc
+Derived Classes: none
+Responsibilities:  no additional
+
+Class Name: Cmd_Larc
+Purpose: Add a labeled arc to a graph
+Parent Class: Cmd_3Int1Tok
+Derived Classes: none
+Responsibilities:
+add a labeled arc and nodes, if necessary, to a graph       Node (12)
+
+Class Name: Cmd_DelLarc
+Purpose: Delete a labeled arc from a graph
+Parent Class: Cmd_3Int1Tok
+Derived Classes: none
+Responsibilities:
+delete a labeled arc from a graph                           Node (12)
+
+//
+// UserInterface
+//
+
+Class Name: UserInterface
+Purpose: provide command line interface between user and system
+Parent Class: none
+Derived Classes: none
+Responsibilities:
+5) Provide interface between program and user data
+get basic types from input (ie. token, int, real, etc.)
+    getToken(String) returns int
+    getLine(String) returns int
+    getReal(double) returns int
+    getReal() returns double
+    getInt(int) returns int
+    getInt() returns int
+    getChar(char) returns int
+    getChar() returns char
+
+provide basic output interface
+    putLine(String) returns int
+    prompt(char*)
+
+detect failure of read operations
+    bad() returns Boolean
+    good()returns Boolean
+    eof() returns Boolean
+
+//
+// Application
+//
+
+Class Name: Application
+Purpose: execute the application by processing user commands
+Parent Class: none
+Derived Classes: none
+Responsibilities:
+13) Run the application
+read and execute commands for user              Command (4)

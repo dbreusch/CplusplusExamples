@@ -1,0 +1,130 @@
+Schedule
+--------
+
+April 18:  Eric releases version 1 of the program.  It consists of all
+	classes, with stub methods, except the Dag, Tree, List, Element,
+	LabelArc, and PseudoNode.  This is a preliminary version designed
+	to speed integration and further work.  The program can add, delete,
+	find, and print graphs, which are nothing but ids.  Node and Arc
+	functionality are not integrated, but are included.  The program
+	has been tested on its limited abovementioned functionality.
+
+April 24:  version 2 will be released.  Eric will integrate Arc and Node
+	into Graph.  Also, all command functions related to adding, deleting,
+	and printing graphs will be available.  The program at this stage
+	will be able to handle adding, deleting, and printing simple graphs.
+	It will not include Dags, Trees, traversal abilities, or insertion.
+		Rion will be responsible for developing rigorous test
+	data for this version.  Although limited testing is done by the
+	author, testing by an outside party will hopefully catch more bugs.
+		David will be responsible for revised Command and List
+	structures that take advantage of designs suggested by Prof.
+	Bergeron.  That is, a general List and a 2IntCommand class will be
+	added to refine inheritance.
+
+April 29:  Version 3 will be released, adding traversal abilities to Graph.
+	David is tentatively responsible for basic dfs of graphs and related
+	traversal.  A graph will know how to traverse itself, so the Command
+	functions related to this, but are the responsibility of Rion.  David
+	and Rion will, in all likelyhood, work closely on the traversal
+	methods.
+
+May 4:  Eric will add the Dag and Tree classes for Version 4.  As Dags and
+	Trees really require nothing but checks when adding arcs, they are
+	relatively simple limited classes.  The traversal required to do
+	the testing is dependent on the April 29 work.
+
+May 11:  Development of PseudoNode and insertion mark the final version of
+	the program.  All members will work closely at this point to finish
+	this task, and test and integrate the final version. 
+
+Integration:
+	General integration is the first task after every version release.
+Resources, namely other members not directly involved in development, are
+set aside for testing the integrated versions.  The program should be 
+completely integrated and working, except for insertion of graphs into other
+graphs, by May 4.  This allows for unexpected time overruns on each previous
+version.
+	Due to the majority of the program being fully completed by Eric by
+April 24, most integration should prove relatively easy.
+
+Class Responsibilities:
+----------------------
+
+Class Name: Graph
+Version 1; Eric, April 18, holds nothing but id, basic versions of all methods
+Version 2; Eric, April 24, Nodes and Arcs included, no traversal ability.
+Version 3; Rion/David, April 29, traversal added
+
+Class Name: Dag
+Version 1; Eric, May 4, everything inherits from Graph save checks on adding
+	arcs, so this is only addition.
+
+Class Name: Tree
+Version 1; Eric, May 4, everything inherits from Dag save checks on adding
+	arcs, so this is only addition.
+
+Class Name: Node
+Version 1; Eric, April 18, holds nothing but id, basic versions of all methods
+Version 2; Eric, April 24, Nodes and Arcs included, no traversal ability.
+Version 3; Rion/David, April 29, traversal added
+
+Class Name: PseudoNode
+Version 1; Rion/David/Eric, May 11, a copy method is intended, not reference
+	also, general integration and bug squashing may require all members
+
+Class Name: Arc
+Version 1; Eric, April 18, basic structure, basic versions of all methods
+Version 2; Eric, April 24, Arcs included into graphs, fully functional
+
+Class Name: LabelArc
+Version 1; Eric, April 24, Nodes and Arcs included, no traversal ability.
+
+Class Name: List
+Version 1; David, April 24, this refinement may be delayed as necessary
+
+Class Name: GraphList
+Version 1; Eric, April 18, functional, but needs updated methods to handle
+	April 24 version.
+Version 2; Eric, April 24, fully functional.
+	
+Class Name: NodeList
+Version 1; Eric, April 18, functional, but needs updated methods to handle
+	April 24 version.
+Version 2; Eric, April 24, fully functional.
+
+Class Name: ArcList
+Version 1; Eric, April 18, functional, but needs updated methods to handle
+	April 24 version.
+Version 2; Eric, April 24, fully functional.
+
+Class Name: Element
+Version 1; David, April 24, this refinement may be delayed as necessary
+
+Class Name: GraphElement
+Version 1; Eric, April 18, functional, but needs updated methods to handle
+	April 24 version.
+Version 2; Eric, April 24, fully functional.
+
+Class Name: NodeElement
+Version 1; Eric, April 18, functional, but needs updated methods to handle
+	April 24 version.
+Version 2; Eric, April 24, fully functional.
+
+Class Name: ArcElement
+Version 1; Eric, April 18, functional, but needs updated methods to handle
+	April 24 version.
+Version 2; Eric, April 24, fully functional.
+
+Class Name: Command (and subclasses)
+Version 1; Eric, April 18, Command finished, stub versions of all Children
+	and their methods.  Print and Printall complete.
+Version 2; Eric, April 24, All node and arc adding, deleting, finding, and
+	printing commands now working.
+Version 3: Rion/David, April 29, traversal (ie. path, cycle, etc.) are done
+	and integrated with Graph methods.
+Version 4: Eric, May 4, adding of Dags and Trees completed
+Version 5: Rion/David/Eric, May 11, insert command finished
+
+Class Name: UserInterface
+Version 1; Prof. Bergeron, April 18, fully functional.

@@ -1,0 +1,9 @@
+graph 1 1
+node 1 2
+larc 1 1 2 a
+larc 1 1 2 b
+larc 1 1 2 a
+arc 1 1 2
+arc 1 1 2
+larc 1 1 2 b
+printall

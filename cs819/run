@@ -1,0 +1,5 @@
+#
+echo "Testing normal behavior"
+asn4 < testa
+echo "Testing abnormal behavior"
+asn4 < testb

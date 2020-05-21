@@ -1,0 +1,147 @@
+User's Guide to the General Graph Tool				Reusch, Jome & D'Luz
+--------------------------------------
+
+The General Graph Tool, a.k.a. GGT, is a command driven program that
+allows you to create graphs composed of nodes, arcs, labeled arcs
+and graphs as nodes.  There are three type of graphs available:  a
+normal directed graph, a directed acyclic graph (dag) and a tree.
+Commands are read from stdin and all output is sent to stdout.
+
+Starting GGT and First Command(s)
+---------------------------------
+To start the application, enter the following:  asn4
+You then need to add the first graph.  After that you can
+add nodes, other graphs and arcs in almost any order you wish.
+See the command summary below.
+
+Commands for GGT
+----------------
+GGT currently supports 18 different graph related commands.  A
+brief description of each is given below.  All arguments specified
+as i, j or k are integers.  The argument specified as token is a
+string of characters (no embedded spaces or other whitespace).
+
+Graph create/delete:
+    graph i j           define a directed graph with node j as its root node;
+                            node j will be created automatically
+    dag i j             define a directed acyclic graph with node j as its
+                            root node
+    tree i j            define a tree with node j as its root node
+    delgraph i          delete a graph/dag/tree
+
+Node create/delete:
+    node i j            add node j to graph i
+    delnode i j         delete node j in graph i, and all associated arcs
+						originating at this node.  arcs in other nodes
+						pointing to this node will not be removed.
+    insert i j k        insert graph j into graph i as node k
+						NOTE: this command is not available in this release
+
+Arc create/delete:
+    arc i j k           create an arc in graph i from node j to node k; if
+                            either (or both) node does not exist, it will
+							automatically be created.  you may create
+							multiple unlabeled arcs between the same nodes.
+    larc i j k token    create an arc in graph i from node j to node k and
+                            make token a label on the arc; if either (or both)
+							node does not exist, it will automatically
+							be created.  only one labeled arc with a given
+							label is allowed between the same nodes.
+    delarc i j k        delete the unlabeled arc from node j to node k in
+                            graph i
+    dellarc i j k       delete the labeled arc from node j to node k in
+                            graph i
+
+General commands:
+    print i             print the structure of graph i
+    printall            print the structure of all graphs
+    reach i j           determine whether node j in graph i can be reached
+                            from the root of graph i; if so, print a path
+    unreach i           determine whether any nodes in graph i cannot be 
+                            reached from the root of graph i; if so, print the
+                            unreachable nodes
+    dfs i j             do a depth-first traversal of graph i starting at
+                            node j and print the nodes as they are reached
+                            for the first time
+    path i j            determine if a path exists from node j to node k in
+                            graph i; if so, print the nodes in the path
+    cycle i j           determine if a cycle is present in graph i that passes
+                            through node j; if so, print the nodes in the cycle
+
+Output
+------
+All GGT commands issue messages during their execution.  Some examples
+are shown below:
+
+Add/delete type commands:
+    Command graph with id 1 and root 10.
+    Command node with graph id 1 and node id 30.
+    Command arc with graph id 1 from 10 to 30.
+    Command delarc with graph id 1 to 30 from 10.
+    Command delnode with graph id 1 and node id 30.
+
+Key:  The output here is just a rephrasing of the input command
+
+
+Print command:
+     Graph with id 1:
+       Node 10 arcs to: 20, 30
+       Node 20 arcs to: 40, 30
+       Node 30 arcs to: 40
+       Node 40 arcs to: 50
+       Node 50 no arcs from here
+
+Key:  This shows the specified graph and its nodes.  Arcs for each node are
+      listed, if they exist.  Arcs and nodes are shown in order of creation
+      by the respective add command.
+
+
+Printall command:
+    GraphList
+    ---------
+     Graph with id 1:
+       Node 1 no arcs from here
+       Node 5 arcs to: 6
+       Node 6 arcs to: 5
+       Node 7 arcs to: 5, 1
+
+     Graph with id 2:
+       Node 1 no arcs from here
+       Node 2 arcs to: 1, 3
+       Node 3 arcs to: 1
+
+Key:  This shows all graphs defined by the user in the format of the
+      print command.
+
+
+Reach & unreach:
+    Command reach with graph id 1 and dest node 6.
+    Node 6 not reachable from root node 1
+    Command unreach with graph id 1.
+    Unreachable nodes: 5 6 7 
+
+Key:  For this example, node 6 is not reachable and this is shown by
+      both the reach command and the unreach command.  There are also
+      two other nodes, 5 & 7, that are not reachable from the root.
+
+
+Path & cycle:
+    Command cycle with graph id 1 and start node 7.
+    Cycle: 7 5 6 7 
+    Command path with graph id 1 and start node 5 and dest node 7.
+    5 6 7 
+
+Key:  This example shows a cycle of three nodes, 5, 6 & 7.  The path
+      command also verifies the existence of a path (not necessarily the
+      ONLY path between nodes).
+
+
+Dfs traversal:
+    Command dfs with graph id 1 and start node 1.
+    1 5 6 7 
+
+Key:  This example shows the order that nodes would be reached when doing
+      a depth-first traversal of graph 1 from its root.
+
+
+5/13/94

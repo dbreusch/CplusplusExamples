@@ -1,0 +1,205 @@
+From ejj Fri Apr  8 15:51:18 1994
+Received: by kepler.unh.edu id AA09812
+  (5.67b+/IDA-1.5 for dbr); Fri, 8 Apr 1994 15:51:16 -0400
+Date: Fri, 8 Apr 1994 15:51:16 -0400
+From: Eric J Jome <ejj>
+Message-Id: <199404081951.AA09812@kepler.unh.edu>
+To: dbr
+Subject: here it is
+Status: RO
+
+
+/*** Notes ***/
+
+1) Node isn't very ueful.  It seems to be nothing but an integer.
+   Probably still need it for disconnected graph nodes.
+
+2) Arcs could have LabelArc child class or maintain label as optional
+   property of self.
+
+3) The List class could be a 2-way ring with sentinel(s) to take advantage
+   of existing code available.
+
+4) The NodeList class is an actual list for Nodes; they are kept in order
+   by id number to shorten search time.  Other Lists could be converted
+   to sets, but the idea of maintaining levels of namespace without duplicates
+   may make the earlier ordering idea worthwhile.
+
+/*************/
+
+Class Name: Graph
+Purpose: basic form for a directed graph
+Parent Class: none
+Derived Classes: Dag, Tree
+Responsibilities:
+	maintain id number of graph
+	maintain a set of the graph's nodes
+	maintain a set of the graph's arcs
+	provide methods for traversing, checking, and changing graph
+
+Class Name: Dag
+Purpose: basic form for a directed acyclic graph
+Parent Class: Graph
+Derived Classes: Tree
+Responsibilities:
+	maintain id number of dag
+	maintain a set of the dag's nodes
+	maintain a set of the dag's arcs
+	provide methods for traversing dag or checking dag properties
+	maintain acyclic property
+
+Class Name: Tree
+Purpose: basic form for a tree
+Parent Class: Dag
+Derived Classes: none
+Responsibilities:
+	maintain id number of tree
+	maintain a set of the tree's nodes
+	maintain a set of the tree's arcs
+	provide methods for traversing tree or checking tree properties
+	maintain acyclic property
+	maintain tree property (each node has at most 1 parent)
+
+Class Name: Node
+Purpose: basic form for a graph node
+Parent Class: none
+Derived Classes: PseudoNode
+Responsibilities:
+	maintain node id
+
+Class Name: PseudoNode
+Purpose: allow for treatment of a graph as a node in another graph
+Parent Class: Node
+Derived Classes: none
+Responsibilities:
+	maintain node id
+	maintain copy of graph it represents
+	print self
+
+Class Name: Arc
+Purpose: basic form for the connective proerty, arcs, of graphs
+Parent Class: none
+Derived Classes: LabelArc
+Responsibilities:
+	maintain arc as a "to" "from" pair of node names
+	print self
+
+Class Name: LabelArc
+Purpose: basic form for the connective proerty, arcs, of graphs
+Parent Class: Arc
+Derived Classes: none
+Responsibilities:
+	maintain arc as a "to" "from" pair of node names
+	maintain arc name
+	print self
+
+Class Name: List
+Purpose: general implementation of list structure
+Parent Class: none
+Derived Classes: GraphList, NodeList, ArcList
+Responsibilities:
+	adding objects of class Element
+	deleteing objects of class Element
+	finding objects of class Element
+	printing objects of class Element
+
+Class Name: GraphList
+Purpose: main storage structure of program
+Parent Class: List
+Derived Classes: none
+Responsibilities:
+	adding objects of class GraphElement
+	deleteing objects of class GraphElement
+	finding objects of class GraphElement
+	printing objects of class GraphElement
+	
+Class Name: NodeList
+Purpose: storage structure for groups of nodes
+Parent Class: List
+Derived Classes: none
+Responsibilities:
+	adding objects of class NodeElement
+	deleteing objects of class NodeElement
+	finding objects of class NodeElement
+	printing objects of class NodeElement
+
+Class Name: ArcList
+Purpose: storage structure for groups of arcs
+Parent Class: List
+Derived Classes: none
+Responsibilities:
+	adding objects of class ArcElement
+	deleteing objects of class ArcElement
+	finding objects of class ArcElement
+	printing objects of class ArcElement
+
+Class Name: Element
+Purpose: general implementation of element structure
+Parent Class: none
+Derived Classes: GraphElement, NodeElement, ArcElement
+Responsibilities:
+	general connective properties of elements
+
+Class Name: GraphElement
+Purpose: provide method for putting objects of type Graph in GraphList
+Parent Class: Element
+Derived Classes: none
+Responsibilities:
+	maintain a pointer to a Graph
+	interface between GraphList and Graph
+
+Class Name: NodeElement
+Purpose: provide method for putting objects of type Node in NodeList
+Parent Class: Element
+Derived Classes: none
+Responsibilities:
+	maintain a pointer to a Node
+	interface between NodeList and Node
+
+Class Name: ArcElement
+Purpose: provide method for putting objects of type Arc in ArcList
+Parent Class: Element
+Derived Classes: none
+Responsibilities:
+	maintain a pointer to a Arc
+	interface between ArcList and Arc
+
+Class Name: Command
+Purpose: collect general command form for specific command classes
+Parent Class: none
+Derived Classes: Cmd_Graph, Cmd_Dag, Cmd_Tree, Cmd_Node, Cmd_Arc,
+                 Cmd_Larc, Cmd_Insert, Cmd_Delgraph, Cmd_Delnode, 
+                 Cmd_Delarc, Cmd_Dellarc, Cmd_print, Cmd_printall,
+                 Cmd_Unreach, Cmd_Dfs, Cmd_Reach, Cmd_Path, Cmd_Cycle
+Responsibilities:
+	maintain character string equivalent of name
+	check for valid command type
+	basic get and store arguments methods
+	basic execute methods
+
+(this is a general purpose card to avoid cards for all of the above)
+
+Class Name: Cmd_***
+Purpose: specific execution of related command
+Parent Class: Command
+Derived Classes: none
+Responsibilities:
+	maintain character string equivalent of name
+	check for valid command type
+	specific get and store arguments methods
+	specific execute methods
+
+Class Name: UserInterface
+Purpose: procide command line interfce between user and system
+Parent Class: none
+Derived Classes: none
+Responsibilities:
+	get basic types from input (ie. token, int, real, etc.)
+	detect failure of read operations
+
+/*** Subsystem Cards ***/
+
+not done yet, undecided how these fit together
+
+/***********************/
+
