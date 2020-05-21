@@ -1,4 +1,4 @@
-# C++ "asn4"
+# cs819 Object Oriented Design Assignment 4
 The General Graph Tool (GGT)
 
 A command driven program that
