@@ -43,7 +43,7 @@ CFLAGS = -g -I$(INC719)
 
 LIBS =  -l719 -lm -lg++
 
-PROGRAM = asn4
+PROGRAM = ggt
 
 .cc.o:
 		$(CC) $(CFLAGS) -c $*.cc
@@ -74,7 +74,7 @@ depend:
 	mv Makefile.new Makefile
 
 #=====DO NOT DELETE THIS LINE=====
-asn4.o : asn4.cc /home/cs/cs719/public/include/UserInterface.h command.h /home/cs/cs719/public/include/ui.h \
+ggt.o : ggt.cc /home/cs/cs719/public/include/UserInterface.h command.h /home/cs/cs719/public/include/ui.h \
   graphlist.h 
 command.o : command.cc graph.h nodelist.h node.h arclist.h arc.h graphlist.h \
   command.h /home/cs/cs719/public/include/ui.h 
